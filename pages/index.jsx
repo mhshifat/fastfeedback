@@ -1,6 +1,7 @@
 import { useAuth } from "@/lib/auth";
-import { Button, Code, Heading, Text } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import Head from "next/head";
+import { FastFeedbackIcon } from "public/icons";
 import { useCallback } from "react";
 
 const Home = () => {
@@ -9,25 +10,29 @@ const Home = () => {
 	const signOut = useCallback(() => auth.signout(), []);
 
 	return (
-		<div>
+		<Flex
+			as="main"
+			direction="column"
+			align="center"
+			justify="center"
+			h="100vh"
+		>
 			<Head>
 				<title>Fast Feedback</title>
 			</Head>
 
-			<main>
-				<Heading>Fast Feedback</Heading>
+			<FastFeedbackIcon color="black.500" boxSize="64px" />
 
-				<Text>
-					Current user: <Code>{auth.user ? auth.user.email : "None"}</Code>
-				</Text>
-
-				{auth.user ? (
-					<Button onClick={signOut}>Sign Out</Button>
-				) : (
-					<Button onClick={signInWithGithub}>Sign In</Button>
-				)}
-			</main>
-		</div>
+			{auth.user ? (
+				<Button as="a" href="/dashboard">
+					View Dashboard
+				</Button>
+			) : (
+				<Button mt={4} size="sm" onClick={signInWithGithub}>
+					Sign In
+				</Button>
+			)}
+		</Flex>
 	);
 };
 
