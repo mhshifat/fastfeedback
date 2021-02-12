@@ -28,7 +28,7 @@ const AddSiteModal = ({ children }) => {
 
 	const onCreateSite = ({ name, url }) => {
 		mutate(
-			"/api/sites",
+			["/api/sites", auth.user.token],
 			async (sites) => {
 				const newSite = {
 					authorId: auth.user.uid,

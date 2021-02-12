@@ -8,9 +8,10 @@ import useSWR from "swr";
 
 const Dashboard = () => {
 	const auth = useAuth();
-	const { data } = useSWR("/api/sites", fetcher);
-
-	console.log(data);
+	const { data } = useSWR(
+		auth?.user?.token ? ["/api/sites", auth.user.token] : null,
+		fetcher
+	);
 
 	if (!data)
 		return (
