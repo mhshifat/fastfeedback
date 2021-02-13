@@ -1,6 +1,7 @@
 import DashboardShell from "@/components/DashboardShell";
 import EmptyState from "@/components/EmptyState";
 import SiteTable from "@/components/SiteTable";
+import SiteTableHeader from "@/components/SiteTableHeader";
 import SiteTableSkeleton from "@/components/SiteTableSkelaton";
 import { useAuth } from "@/lib/auth";
 import fetcher from "@/utils/fetcher";
@@ -16,12 +17,14 @@ const Dashboard = () => {
 	if (!data)
 		return (
 			<DashboardShell>
+				<SiteTableHeader />
 				<SiteTableSkeleton />
 			</DashboardShell>
 		);
 	return (
 		<DashboardShell>
-			{!data.length ? <EmptyState /> : <SiteTable sites={data} />}
+			<SiteTableHeader />
+			{data.length ? <SiteTable sites={data} /> : <EmptyState />}
 		</DashboardShell>
 	);
 };
